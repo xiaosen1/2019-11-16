@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        首先预解析
+         */
+        // console.log(a)  // 函数
+        // var a = 12
+        // function a(){
+        //     console.log(a)  // 报错代码不往下运行
+        //     a = 13
+        // }
+        // a()
+        // console.log(a) 
+
+        // var n = 0
+        // function a (){
+        //     var n = 10  
+        //     function b() {
+        //         n++
+        //         console.log(n) // 11
+        //     }
+        //     b()
+        //     return b
+        // }
+        // var c = a()  // 11
+        // c()  // 12
+        // console.log(n)  // 0
+
+        // var a1 = 4,a2 = [1,2],x=6 //[1,2,3]
+        // function f(){
+            // console.log(this.x)
+        // } 
+        // function b(x,y) {
+        //     // arguments是实参的集合，是个类数组
+        //     arguments[0] = 10
+        //     arguments[1].push(3)
+        // arguments[2]()  // [,,f]  这个f是属于argument，所以this.x没有就为undefined
+        // console.log(arguments)
+        //     y=[]
+        //     console.log(x,y)  //10,[]
+        // }
+        // b(a1,a2,f)
+        // console.log(a1,a2)  // 4,[1,2,3]
+
+        // function fn(i) {
+        //     return function (n) {
+        //         console.log(n+(i++))
+        //     }
+
+        // }
+        // var f =fn(10)  // fn的闭包环境，i不会被回收 
+        // console.log(f(20))    // 30
+        // console.log(fn(20)(40))  // 60
+        // console.log(fn(30)(50))  // 80
+        // console.log(f(30))    // 41
+        // var x =3
+        // obj = {x:5}
+        // obj.fn = (function () {
+        //     this.x *= ++x
+        //     return function (y) {
+        //         this.x *=(++x)+y
+        //         console.log(x)
+        //     }
+        // })()
+        // var fn = obj.fn
+        // obj.fn(6)
+        // fn(4)
+        // console.log(obj.x,x)
+        // function Fn() {
+        //     this.x = 10;
+        //     this.y = 20;
+        //     this.getX = function () {
+        //         console.log(this.x);  // 10
+        //     }
+        // }
+        // Fn.prototype.y = 40;
+        // Fn.prototype = {
+        //     x: 30,
+        //     getY: function () {
+        //         this.y += 1;
+        //         console.log(this.y);
+        //     },
+        //     sum: function () {
+        //         console.log(this.x + this.y);  
+        //     }
+        // };
+        // let f1 = new Fn;
+        // let f2 = new Fn;
+        // console.log(f1.getX === f2.getX);
+        // console.log(f1.getY === f2.getY);
+        // console.log(f1.constructor);
+        // f1.getX();
+        // f2.getY();
+        // f1.sum();
+
+        // var F = function () { };
+        // Object.prototype.a = function () {
+        //     console.log('a()')
+        // };
+        // Function.prototype.b = function () {
+        //     console.log('b()')
+        // };
+        // var f = new F();
+        // f.a();
+        // f.b();
+        // F.a();
+        // F.b();
+
+        // function A() {
+        //     alert(1);
+        // }
+        // function Func() {
+        //     A = function () {
+        //         alert(2);
+        //     };
+        //     return this;
+        // }
+        // Func.A = A;
+        // Func.prototype = {
+        //     A: () => {
+        //         alert(3);
+        //     }
+        // };
+        // A();          // alert 1
+        // Fn.A();        // alert 1
+        // Fn().A();       // alert 2
+        // new Fn.A();      // alert 1
+        // new Fn().A();     // alert3
+        // new new Fn().A();  // 报错
+
+        // var name = "WINDOW",
+        //     obj = {
+        //         name: "OBJ",
+        //         fn: (function () {
+        //             console.log(this.name);  // WINDOW
+        //             return function () {
+        //                 console.log(this.name);  // 'OBJ'
+        //             }
+        //         })()
+        //     },
+        //     // 箭头函数的call方法，还是指向上下文
+        //     fn = () => {
+        //         console.log(this.name);   // WINDOW
+        //     };
+        // fn();
+        // obj.fn();
+        // fn.call(obj);
+
+        function A1(name) {
+            this.name = name;
+        }
+        function A2(name) {
+            this.name = name || 'Jerry';
+        }
+        function A3(name) {
+            name && (this.name = name)
+        }
+        A1.prototype.name = 'Tom';
+        A2.prototype.name = 'Tom';
+        A3.prototype.name = 'Tom';
+        // undefined+'Jerry'+'Tom'
+        alert((new A1().name) + (new A2().name) + (new A3().name));
+    </script>
+</body>
+
+</html>
